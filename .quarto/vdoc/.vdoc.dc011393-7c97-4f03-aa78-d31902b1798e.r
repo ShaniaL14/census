@@ -1,19 +1,19 @@
----
-title: "Analyzing US Census Data"
-author: "Shania L14"
-execute:
-  echo: false
----
-
-```{r}
+#
+#
+#
+#
+#
+#
+#
+#
 #| message: false
 
 library(tidyverse)
 library(tidycensus)
 library(sf)
-```
-
-```{r}
+#
+#
+#
 #| message: false
 
 income_tx <- get_acs(
@@ -24,9 +24,9 @@ income_tx <- get_acs(
   survey = "acs5",
   geometry = TRUE
 )
-```
-
-```{r}
+#
+#
+#
 ggplot(income_tx) +
   geom_sf(aes(fill = estimate)) +
   scale_fill_viridis_c(
@@ -38,9 +38,9 @@ ggplot(income_tx) +
     caption = "Source: U.S. Census Bureau, 2020 ACS 5-year estimates."
   ) +
   theme_void()
-```
-
-```{r}
+#
+#
+#
 #| message: false
 #| cache: true
 
@@ -57,9 +57,9 @@ edu_state <- get_acs(
   year = 2020,
   survey = "acs5"
 )
-```
-
-```{r}
+#
+#
+#
 edu_state |>
   filter(variable %in% c(
     "B15003_022",
@@ -84,9 +84,9 @@ edu_state |>
     caption = "Source: U.S. Census Bureau, 2020 ACS 5-year estimates."
   ) +
   theme_minimal()
-```
-
-```{r}
+#
+#
+#
 #| message: false
 
 age_ca <- get_acs(
@@ -100,35 +100,7 @@ age_ca <- get_acs(
   survey = "acs5",
   geometry = FALSE
 )
-```
-
-```{r}
-age_ca_wide <- age_ca |>
-  select(NAME, GEOID, variable, estimate) |>
-  pivot_wider(
-    names_from = variable,
-    values_from = estimate
-  )
-
-largest_counties <- age_ca_wide |>
-  slice_max(population, n = 5, with_ties = FALSE) |>
-  mutate(label_population = c(1.3e7, 4.5e6, 2.8e6, 1.8e6, 3.8e6))
-
-ggplot(age_ca_wide, aes(x = median_age, y = population)) +
-  geom_point() +
-  geom_text(
-    data = largest_counties,
-    aes(y = label_population, label = NAME),
-    hjust = 0,
-    nudge_x = 0.15,
-    size = 3
-  ) +
-  scale_y_log10(labels = scales::label_number()) +
-  labs(
-    title = "California County Population by Median Age",
-    x = "Median age",
-    y = "Population (log scale)",
-    caption = "Source: U.S. Census Bureau, 2020 ACS 5-year estimates."
-  ) +
-  theme_minimal()
-```
+#
+#
+#
+#
